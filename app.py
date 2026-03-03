@@ -4,8 +4,7 @@ from textwrap import dedent
 from agno.agent import Agent
 from agno.run.agent import RunOutput
 from agno.tools.mcp import MultiMCPTools
-# from agno.tools.googlesearch import GoogleSearchTools
-from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.tools.googlesearch import GoogleSearchTools
 from agno.models.openai import OpenAIChat
 from icalendar import Calendar, Event
 from datetime import datetime, timedelta
@@ -88,8 +87,7 @@ async def run_mcp_travel_planner(destination: str, num_days: int, preferences: s
         travel_planner = Agent(
             name="Travel Planner",
             role="Creates travel itineraries using Airbnb, Google Maps, and Google Search",
-            # model=OpenAIChat(id="gpt-4o-mini",base_url="http://localhost:8080/v1", api_key=openai_key),
-            model=OpenAIChat(id="ai/smollm2",base_url="http://localhost:12434/v1", api_key=openai_key),
+            model=OpenAIChat(id="gpt-4o", api_key=openai_key),
             description=dedent(
                 """\
                 You are a professional travel consultant AI that creates highly detailed travel itineraries directly without asking questions.
@@ -120,7 +118,7 @@ async def run_mcp_travel_planner(destination: str, num_days: int, preferences: s
                 "Use all available tools proactively without asking for permission",
                 "Generate the complete, detailed itinerary in one response without follow-up questions"
             ],
-            tools=[mcp_tools, DuckDuckGoTools()],
+            tools=[mcp_tools, GoogleSearchTools()],
             add_datetime_to_context=True,
             markdown=True,
             debug_mode=False,
@@ -173,7 +171,6 @@ async def run_mcp_travel_planner(destination: str, num_days: int, preferences: s
         """
 
         response: RunOutput = await travel_planner.arun(prompt)
-        print("This is a message111")
         return response.content
 
     finally:
@@ -181,7 +178,6 @@ async def run_mcp_travel_planner(destination: str, num_days: int, preferences: s
 
 def run_travel_planner(destination: str, num_days: int, preferences: str, budget: int, openai_key: str, google_maps_key: str):
     """Synchronous wrapper for the async MCP travel planner."""
-    print("This is a message222")
     return asyncio.run(run_mcp_travel_planner(destination, num_days, preferences, budget, openai_key, google_maps_key))
     
 # -------------------- Streamlit App --------------------
