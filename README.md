@@ -23,7 +23,7 @@ A sophisticated Streamlit-based AI travel planning application that creates extr
 - **Address verification** for all recommended places
 - **Transportation optimization** with turn-by-turn guidance
 
-### 🔍 Google Search Integration
+### 🔍 DuckDuckGo Search Integration
 - **Current weather forecasts** with detailed clothing recommendations
 - **Restaurant research** with specific addresses, price ranges, and reviews
 - **Attraction details** including opening hours, ticket prices, and best visiting times
@@ -41,16 +41,13 @@ A sophisticated Streamlit-based AI travel planning application that creates extr
 
 ### Requirements
 
-1. **API Keys** (Both Required):
-    - **OpenAI API Key**: Get your API key from [OpenAI Platform](https://platform.openai.com/api-keys)
-    - **Google Maps API Key**: Get your API key from [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+1. **Python 3.8+**: Ensure you have Python 3.8 or higher installed.
 
-2. **Python 3.8+**: Ensure you have Python 3.8 or higher installed.
-
-3. **MCP Servers**: The app automatically connects to:
+2. **MCP Servers**: The app automatically connects to:
     - **Airbnb MCP Server**: Provides real Airbnb listings and pricing data
     - **Custom Google Maps MCP**: Enables precise distance calculations and location services
 
+3. **Install Docker Desktop**: For enabling any local Models using Docker
 ### Installation
 
 1. Clone this repository:
@@ -65,25 +62,29 @@ A sophisticated Streamlit-based AI travel planning application that creates extr
 
 ### Running the App
 
-1. Start the Streamlit app:
+1. Start the Docker Desktop locally:
+   ```bash
+   docker model run ai/smollm2
+   ```
+2. Start the Streamlit app:
    ```bash
    streamlit run app.py
    ```
 
-2. In the app interface:
-   - Enter your **OpenAI API key** in the sidebar
-   - Enter your **Google Maps API key** in the sidebar
+3. In the app interface:
+   - Enter the **API key** as dummy in the sidebar
+   - Enter the **Google Maps API key** as dummy in the sidebar
    - Specify your destination, trip duration, budget, and preferences
    - Click "🎯 Generate Itinerary" to create your detailed travel plan
 
-3. **Optional**: Download your itinerary as a calendar file (.ics) for import into Google Calendar, Apple Calendar, or Outlook
+4. **Optional**: Download your itinerary as a calendar file (.ics) for import into Google Calendar, Apple Calendar, or Outlook
 
 ## Troubleshooting
 
 ### Common Issues & Solutions
 
 - **"Error: [error message]"**: Check your internet connection and API keys
-  - Verify both OpenAI and Google Maps API keys are entered correctly
+  - Verify both AI and Google Maps API keys are entered correctly
   - Try again in a few minutes - the MCP servers may be temporarily unavailable
 
 - **Missing distance information**: Google Maps MCP connection issue
@@ -99,11 +100,6 @@ A sophisticated Streamlit-based AI travel planning application that creates extr
   - Try from a different network
   - Use a VPN if necessary
   - The app will show connection errors if MCP servers are unreachable
-
-### API Key Issues
-
-- **OpenAI API Key**: Make sure you have credits in your OpenAI account and the key is valid
-- **Google Maps API Key**: Ensure the key has Maps API enabled and proper billing setup
 
 ### Tool Status
 
@@ -126,7 +122,7 @@ The app will show you which data sources were successfully used:
 The AI Travel Planner Agent Team uses a sophisticated multi-step process to create extremely detailed travel itineraries:
 
 ### 🤖 AI Agent Architecture
-- **GPT-4o Model**: Powers the intelligent travel planning with advanced reasoning capabilities
+- **ai/smollm2 Model**: Powers the intelligent travel planning with advanced reasoning capabilities
 - **Multi-MCP Integration**: Combines Airbnb and Google Maps MCP servers for real-time data
-- **Google Search Tools**: Provides current weather, reviews, and local insights
+- **DuckDuckGo Tools**: Provides current weather, reviews, and local insights
 - **Direct Response Generation**: Creates complete itineraries without asking clarifying questions
